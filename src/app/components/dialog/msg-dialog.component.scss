@@ -1,0 +1,54 @@
+.msg-dialog-main {
+    padding: 10px;
+    background-color: var(--background-color-primary);
+}
+
+.theme-button {
+    height: 30px;
+    width: 30px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 5px;
+}
+
+.white-theme {
+    background-color: white;
+    border: solid 2px #3668C8;
+}
+
+.yellow-theme {
+    background-color: #F9F5E4 ;
+}
+
+.yellow-theme::selection {
+
+    border: solid 2px #3668C8;
+}
+
+.dark-theme {
+    background-color: #252532;
+}
+
+.blue-theme {
+    background-color: #3F394A;
+}
+
+mat-slider {
+    width: 300px;
+  }
+
+  .larger-text {
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+
+
+  mat-slider {
+    width: 100px;
+  }
+
+
+  .slider-section {
+    margin-bottom: 10px;
+  }

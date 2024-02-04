@@ -1,0 +1,54 @@
+[data-theme="light"] {
+    --font-color-primary: #8D8D8D;
+    --font-color-secondary: #354CC1;
+    --font-color-tertiary: #939393;
+    --background-color-primary: #F5F5F5;
+    --block-background-color-primary: #FFFFFF;
+    --block-background-color-selected: #ABC0FD;
+    --block-section-background-color: #F0F0F0;
+    --block-border-color: #C7C7C7;
+    --button-active: #3A51C2;
+    --button-deactivated: #888888;
+}
+
+
+//3918
+[data-theme="dark"] {
+    --font-color-primary: #8D8AA2;
+    --font-color-secondary: #706A9A;
+    --font-color-tertiary: #0f5A6E;
+    --background-color-primary: #3E394A;
+    --block-background-color-primary: #302B3C;
+    --block-background-color-selected: #a;
+    --block-section-background-color: #383343;      
+    --block-border-color: #716D82;
+    --button-active: #716A9A;
+    --button-deactivated: #5E596D;
+}
+
+
+[data-theme="blue"] {
+    --font-color-primary : #adaeb0;
+    --font-color-secondary : #7492D3;
+    --font-color-tertiary: #575859;
+    --background-color-primary: #0E1012;
+    --block-background-color-primary: #222432;
+    --block-background-color-selected: #3D4D77;
+    --block-section-background-color: #12131b;
+    --block-border-color: #020305;
+    --button-active: #0E1012;
+    --button-deactivated: ; 
+}
+
+[data-theme="yellow"] {
+    --font-color-primary: #715C36;
+    --font-color-secondary: #5D9D86;
+    --font-color-tertiary: #B2A689;
+    --background-color-primary: #F1ECDC;
+    --block-background-color-primary: #F9F5E5;
+    --block-background-color-selected: ;
+    --block-section-background-color: #F1ECDB;
+    --block-border-color: #9F8D68;
+    --button-active: #5C8986;
+    --button-deactivated: ;
+}
