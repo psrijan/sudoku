@@ -7,7 +7,8 @@ import { ThemesService } from '../../service/themes.service';
 import {MatSliderModule} from '@angular/material/slider';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogData, MsgDialogComponent, ThemeChoice } from '../dialog/msg-dialog.component';
-
+import { Difficulty } from 'src/app/util/sudoku.generator.util';
+import { SudokuGenerator } from 'src/app/util/sudoku.generator.util';
 
 @Component({
   selector: 'app-board',
@@ -41,10 +42,17 @@ export class BoardComponent {
   currentThemeType : ThemeChoice.WHITE;
   currentFontSize : 1;
 
+  difficultyLevel : Difficulty = Difficulty.EASY;
+  matrixIndex : number = 0; // index of the matrix that is returned for the difficulty level. 
+
   constructor(private themeService : ThemesService,
     public dialog : MatDialog) {
     console.log("board matrix initalizer");
     this.boardMatrix  = []; 
+    
+    let generator = new SudokuGenerator();
+    generator.getSudoku(this.difficultyLevel, this.matrixIndex)
+    
 
     for (let r = 0; r < this.MATRIX_SIZE; r++) {
         let row: BlockModel[] = [];
@@ -153,8 +161,6 @@ export class BoardComponent {
     if (this.hintCount > 0)
       this.hintCount--;
     
-    
-
   }
 
   undoClicked() {
@@ -189,6 +195,7 @@ export class BoardComponent {
     }
 
   }
+
 
 }
 

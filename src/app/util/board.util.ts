@@ -18,6 +18,45 @@ export let isSameSection = (curIndex : number[] , selectedIndex : number[]) => {
 
 }
 
+export class CheckValidSudoku {
+
+
+    constructor() {}
+
+    public test() {
+
+    }
+
+    public 
+
+
+
+let dfs = (boardMatrix: BlocKModel[][], int rI, int cI) {
+    if (rI >= boardMatrix.length) {
+        isComplete = true;
+    }
+}
+
+
+export let generateRandomBoard = (row, col) => {
+    let MAX_ROW = 10;
+    let MAX_COL = 20;
+    
+    let randRow = Math.floor(Math.random() * MAX_ROW);
+    let randCol = Math.floor(Math.random() * MAX_COL);
+
+
+
+
+
+
+
+}
+
+
+}
+
+
 
 export let isBoardValid = (boardMatrix : BlockModel[][] ) => {
     return true;
