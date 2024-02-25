@@ -7,7 +7,7 @@ import { ThemesService } from '../../service/themes.service';
 import {MatSliderModule} from '@angular/material/slider';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogData, MsgDialogComponent, ThemeChoice } from '../dialog/msg-dialog.component';
-import { Difficulty } from 'src/app/util/sudoku.generator.util';
+import { Difficulty, SudokuValidator } from 'src/app/util/sudoku.generator.util';
 import { SudokuGenerator } from 'src/app/util/sudoku.generator.util';
 
 @Component({
@@ -33,6 +33,7 @@ export class BoardComponent {
   hintCount : number = 3;
 
   selectedValue = 0;
+  // selectedLoc[0] = ROW, selectedLoc[1] = COL
   selectedLoc : number[];
   
   pencilMode : boolean = false;
@@ -45,23 +46,24 @@ export class BoardComponent {
   difficultyLevel : Difficulty = Difficulty.EASY;
   matrixIndex : number = 0; // index of the matrix that is returned for the difficulty level. 
 
+  generator : SudokuGenerator;
+  validator : SudokuValidator;
+
+  /* Is set to true, if any of the board index is invalid, 
+  this value used to enable disable 
+  */
+  indexValid : boolean = true; 
+
   constructor(private themeService : ThemesService,
     public dialog : MatDialog) {
     console.log("board matrix initalizer");
     this.boardMatrix  = []; 
     
-    let generator = new SudokuGenerator();
-    generator.getSudoku(this.difficultyLevel, this.matrixIndex)
-    
+    this.generator = new SudokuGenerator();
+    this.validator = new SudokuValidator();
 
-    for (let r = 0; r < this.MATRIX_SIZE; r++) {
-        let row: BlockModel[] = [];
-        
-        for (let c = 0; c < this.MATRIX_SIZE; c++ ) {
-          row.push(this.createInitialValue(r, c));
-        }
-        this.boardMatrix.push(row);
-    }
+
+    this.boardMatrix = this.generator.getSudoku(this.difficultyLevel, this.matrixIndex)
 
     this.startTime = new Date();
 
@@ -73,29 +75,17 @@ export class BoardComponent {
       this.timeSec = seconds < 10 ? "0" + seconds.toString() : seconds.toString();
 
     }, 1000);
-
-
     console.log("row: ", this.boardMatrix.length, " col: ", this.boardMatrix[0].length);
-
-  }
-
-  createInitialValue(row, col) {
-    let initialValue : BlockModel = {
-      girdLocation : [row, col],
-      isSelected : false,
-      isSectionSelected : false,
-      isPencilEnabled : false,
-      penciledValue : -1,
-      suppliedValue: -1
-    }
-    return initialValue;
-
   }
 
 
   numBlockClick(selectedGridLoc : any) {
     console.log("num block clicked", selectedGridLoc);
     // change current selected
+
+    if (!this.indexValid)
+      return;
+
     this.selectedLoc = selectedGridLoc;
 
     for (let r = 0; r < this.MATRIX_SIZE; r++) {
@@ -137,7 +127,7 @@ export class BoardComponent {
   getLoc(row : number, col : number) {
     return [row, col];
   }
- 
+
 
   eraseClicked() {
     console.log('Erase Clicked');
@@ -156,7 +146,6 @@ export class BoardComponent {
     console.log('Pencil Value: ', this.pencilMode);
   }
 
-
   smartHintClicked() {
     if (this.hintCount > 0)
       this.hintCount--;
@@ -174,7 +163,6 @@ export class BoardComponent {
     }
   }
 
-
   numButtonClick(curNum : number) {
     console.log("Number: ", curNum);
     this.selectedValue = curNum;
@@ -184,19 +172,20 @@ export class BoardComponent {
         selectedBlock.penciledValue = this.selectedValue;
       } else {
         selectedBlock.suppliedValue = this.selectedValue;
-        if (isBoardValid(this.boardMatrix)) {
+        if (!this.validator.isIndexValid(this.boardMatrix, this.selectedLoc[0], this.selectedLoc[1])) {
           this.scoreVal += 100;
+          selectedBlock.isSuppliedValid = true;
+          this.indexValid = true;
         } else {
           this.curMistakes++;
+          selectedBlock.isSuppliedValid = false;
+          this.indexValid = false;
         }
       }
     } else {
       console.log('Num Click not being supplied to Block');
     }
-
   }
-
-
 }
 
 @Component({

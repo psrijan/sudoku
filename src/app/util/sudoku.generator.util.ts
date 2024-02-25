@@ -1,5 +1,83 @@
 import { BlockModel } from "../models/model";
 
+export class SudokuValidator {
+
+    MAX_SUDOKU_ROW = 9;
+    MAX_SUDOKU_COL = 9;
+
+    INITIAL_BOARD_VALUE = 0;
+
+    constructor() {}
+
+    //scenario check that the whole board is valid
+
+    // check that a particular inserted value is valid.
+
+
+    public isBoardValid(board: BlockModel[][]) {
+
+    }
+
+
+    public isIndexValid (board : BlockModel[][], targetRow, targetColumn) : boolean {
+        let rowVals = new Set<Number> (); 
+        let colVals = new Set<Number> (); 
+        let blockVals = new Set<Number> ();
+
+
+        for (let r = 0; r< this.MAX_SUDOKU_ROW; r++) {
+            let curModel : BlockModel = board[r][targetColumn];
+            // targetRow should not be equal to r because we are checking if the value is present in other row vals
+            if (targetRow != r && curModel.suppliedValue != this.INITIAL_BOARD_VALUE) {
+                rowVals.add(curModel.suppliedValue); 
+            }
+        }
+
+        for (let c = 0; c < this.MAX_SUDOKU_COL; c++) {
+            let curModel : BlockModel = board[targetRow][c];
+            // targetColumn should not be equal to c because we are cehcking if the value is present in other col vals
+            if (targetColumn != c  && curModel.suppliedValue != this.INITIAL_BOARD_VALUE) {
+                colVals.add(curModel.suppliedValue)
+            }
+        }
+
+        let rowMul = Math.floor(targetRow / 3);
+        let colMul = Math.floor(targetColumn / 3);
+
+        let startR = rowMul * 3; 
+        let startC = colMul * 3;
+        
+        for (let r = startR; r < startR + 3; r++) {
+            for (let c = startC; c < startC + 3; c++) {
+                let curModel : BlockModel  = board[r][c];
+                if ((targetColumn == c && targetRow == r) || curModel.suppliedValue == this.INITIAL_BOARD_VALUE) {
+                    continue;
+                }
+                blockVals.add(curModel.suppliedValue);
+            }
+        }
+
+        let targetModel = board[targetRow][targetColumn];
+        let targetVal = targetModel.suppliedValue;
+        console.log("RowVals:", rowVals);
+        console.log("ColVals: ", colVals);
+        console.log("BlockVals: ", blockVals);
+        console.log("TargetVal: ", targetVal);
+        return rowVals.has(targetVal) || colVals.has(targetVal) || blockVals.has(targetVal);
+    }
+
+
+    
+    
+    
+    isValid (board : number[][], r, c) : any {
+        let target = board[r][c];
+        
+    
+    }
+
+}
+
 
 export class SudokuGenerator {
 
@@ -36,15 +114,14 @@ export class SudokuGenerator {
 
     }
 
-
-    public getSudoku(difficulty : Difficulty, index : number) {
+    public getSudoku(difficulty : Difficulty, index : number): BlockModel[][]{
         let sudokus = this.sudokuMap.get(difficulty);
 
         if (sudokus != null && sudokus.length > index) {
             let sudokuMatrix = sudokus[index];
             return this.generateBoard(sudokuMatrix);
         }
-        return null;
+        throw new Error(`Sudoku Grid with the Difficulty: ${difficulty} and index: ${index} not found`);
     }
 
     private generateBoard(matrix : number[][]) {
@@ -67,15 +144,12 @@ export class SudokuGenerator {
           isSectionSelected : false,
           isPencilEnabled : false,
           penciledValue : -1,
-          suppliedValue: -1,
-          isChangeable : value != 0 ? true : false
+          suppliedValue: value,
+          isChangeable : value != 0 ? true : false,
+          isSuppliedValid : true
         }
         return initialValue;
-    
     }
-
-
-
 }
 
 

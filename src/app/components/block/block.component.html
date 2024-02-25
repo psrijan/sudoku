@@ -1,4 +1,4 @@
 <div class = "block-main" [ngClass]="addAdditionalClass()" (click) = "blockClicked()"> 
-    <div class = "pencil-block">  {{data.penciledValue == -1 ? '' : data.penciledValue}} </div>
-    <div class = "value-block"> {{data.suppliedValue == -1 ? '' : data.suppliedValue}}</div>
+    <div class = "pencil-block">  {{data.penciledValue <= 0 ? '' : data.penciledValue}} </div>
+    <div class = "value-block"> {{data.suppliedValue <= 0 ? '' : data.suppliedValue}}</div>
 </div>

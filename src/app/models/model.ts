@@ -6,5 +6,6 @@ export interface BlockModel {
     suppliedValue : number, // suppliedValue is the value that is sent to the block when you press 1-9
     isPencilEnabled : boolean,
     penciledValue: number,
-    isChangeable : boolean
+    isChangeable? : boolean,
+    isSuppliedValid? : boolean
 }

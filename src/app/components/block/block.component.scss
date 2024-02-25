@@ -21,6 +21,12 @@
     text-align: center;
 }
 
+// case where the user supplies a faulty value
+.error {
+    background-color: red;
+
+}
+
 .selected {
     background-color: var(--block-background-color-selected);
 }

@@ -35,8 +35,11 @@ export class BlockElementComponent implements OnInit {
         
     }
 
+    // @todo additional class should also check for validity
     addAdditionalClass() {
-        if (this.data.isSelected) {
+        if (!this.data.isSuppliedValid) {
+            return 'error';
+        } else if (this.data.isSelected) {
             return 'selected';
         } else if (this.data.isSectionSelected) {
             return 'selected-block';
