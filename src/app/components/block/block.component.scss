@@ -5,7 +5,6 @@
     background-color: var(--block-background-color-primary);
     height: 50px;
     margin: 0px;
-    border: solid 2px var(--block-border-color)
 }
 
 .pencil-block {
@@ -24,7 +23,6 @@
 // case where the user supplies a faulty value
 .error {
     background-color: red;
-
 }
 
 .selected {
@@ -34,4 +32,37 @@
 // section which is selected
 .selected-block {
     background-color: var(--block-section-background-color);
+}
+
+.border-top {
+    border-top: solid 2px var(--block-border-color);
+}
+
+.border-bottomm {
+    border-bottom: solid 2px var(--block-border-color);
+}
+
+.border-left {
+    border-left: solid 2px var(--block-border-color);
+}
+
+.border-right {
+    border-right: solid 2px var(--block-border-color);
+}
+
+
+.border-left-bold {
+    border-left: solid 4px var(--block-border-color);
+}
+
+.border-right-bold {
+    border-right: solid 4px var(--block-border-color);
+}
+
+.border-top-bold {
+    border-top: solid 4px var(--block-border-color);
+}
+
+.border-bottom-bold {
+    border-bottom: solid 4px var(--block-border-color);
 }

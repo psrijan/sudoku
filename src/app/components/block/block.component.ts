@@ -37,15 +37,47 @@ export class BlockElementComponent implements OnInit {
 
     // @todo additional class should also check for validity
     addAdditionalClass() {
+        let resultClass = '';
+
         if (!this.data.isSuppliedValid) {
-            return 'error';
+            resultClass +=  'error ';
         } else if (this.data.isSelected) {
-            return 'selected';
+            resultClass +=  'selected ';
         } else if (this.data.isSectionSelected) {
-            return 'selected-block';
+            resultClass +=  'selected-block ';
         } else {
-            return '';
+            resultClass += '';
         }
+
+        let r = this.data.girdLocation[0];
+        let c = this.data.girdLocation[1];
+
+        if (r == 0) {
+            resultClass += ' border-top-bold border-bottomm ';
+        } else {
+            if ( (r + 1) % 3 == 0) {
+                resultClass += ' border-bottom-bold'
+            } else {
+                resultClass += ' border-bottomm ';
+            }
+        }
+
+        if (c == 0) {
+            resultClass += ' border-left-bold border-right ';
+        } else {
+            if ( (c + 1) % 3 == 0) {
+                resultClass += ' border-right-bold '
+            } else {
+                resultClass += ' border-right ';
+            }
+        }
+
+
+
+
+        console.log("RESULTING SYLE: ", resultClass);
+
+        return resultClass;
       }
 
 }

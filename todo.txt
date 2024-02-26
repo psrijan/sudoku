@@ -1,0 +1,12 @@
+TASK:
+1. Timer is messing up 
+2. the layout is not working so well 
+3. If in case you complete then you need to show a pop up 
+4. What happens after 3 mistake, show a pop up 
+5. The border is not showing well
+6. Colors for white background not working well
+7. complete validation not done 
+8. How does pencil and eraise work. 
+9. 
+
+
