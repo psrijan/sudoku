@@ -1,4 +1,4 @@
-import { BlockModel } from "../models/model";
+import { BlockModel, ResultBuilder, ResultEnum } from "../models/model";
 
 export class SudokuValidator {
 
@@ -15,6 +15,36 @@ export class SudokuValidator {
 
 
     public isBoardValid(board: BlockModel[][]) {
+        
+        for (let r = 0; r < this.MAX_SUDOKU_ROW; r++) {
+            for (let c = 0; c < this.MAX_SUDOKU_COL; c++) {
+                let value = board[r][c].suppliedValue;
+                if (value == this.INITIAL_BOARD_VALUE)
+                    return new ResultBuilder().status(ResultEnum.INCOMPLETE)
+                .message("The board is not complete yet")
+                .build();
+            }
+        }
+
+
+
+        for (let r = 0; r < this.MAX_SUDOKU_ROW; r++) {
+            for (let c = 0; c < this.MAX_SUDOKU_COL; c++) {
+                let isCurIndexValid = this.isIndexValid(board, r, c);
+
+                if (!isCurIndexValid) {
+                    return new ResultBuilder().status(ResultEnum.ERROR)
+                    .message("There are indexes that don't have valid value")
+                    .errorIndex([r,c])
+                    .build();
+                }
+
+            }
+        }
+
+        return new ResultBuilder().status(ResultEnum.COMPLETE)
+        .message("Board Complete")
+        .build();
 
     }
 

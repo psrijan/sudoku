@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BlockModel } from '../../models/model';
+import { BlockModel, INITIAL_BOARD_VALUE, Result } from '../../models/model';
 import { isBoardValid, isSameBlock, isSameSection } from '../../util/board.util';
 import { Block } from '@angular/compiler';
 import { min } from 'rxjs';
@@ -54,6 +54,9 @@ export class BoardComponent {
   */
   indexValid : boolean = true; 
 
+  // holds the overall board result
+  result : Result;
+
   constructor(private themeService : ThemesService,
     public dialog : MatDialog) {
     console.log("board matrix initalizer");
@@ -69,8 +72,10 @@ export class BoardComponent {
 
     setInterval(() => {
       let curTime : Date = new Date();
-      let minutes = curTime.getMinutes() - this.startTime.getMinutes();
-      let seconds = curTime.getSeconds() - this.startTime.getSeconds();
+      let timeDiff = curTime.getTime() - this.startTime.getTime();
+      let hours = Math.floor (timeDiff / (1000 * 60 * 60)) % 60; 
+      let minutes = Math.floor( timeDiff / (1000 * 60)) % 60 ;
+      let seconds = Math.floor( timeDiff / (1000)) % 60;
       this.timeMin = minutes < 10 ? "0" + minutes.toString() : minutes.toString();
       this.timeSec = seconds < 10 ? "0" + seconds.toString() : seconds.toString();
 
@@ -156,8 +161,7 @@ export class BoardComponent {
     console.log("undo clicked");
     if (this.selectedLoc != null && this.selectedLoc.length == 2) {
       let curSelected : BlockModel = this.boardMatrix[this.selectedLoc[0]][this.selectedLoc[1]];
-      curSelected.suppliedValue = -1;
-
+      curSelected.suppliedValue = INITIAL_BOARD_VALUE;
     } else {
       console.log('Erase Clicked: Not selected any grid item');
     }
@@ -182,6 +186,8 @@ export class BoardComponent {
           this.indexValid = false;
         }
       }
+
+      this.result = this.validator.isBoardValid(this.boardMatrix);
     } else {
       console.log('Num Click not being supplied to Block');
     }
