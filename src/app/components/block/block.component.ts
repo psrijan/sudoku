@@ -75,7 +75,7 @@ export class BlockElementComponent implements OnInit {
 
 
 
-        console.log("RESULTING SYLE: ", resultClass);
+        // console.log("RESULTING SYLE: ", resultClass);
 
         return resultClass;
       }

@@ -1,4 +1,4 @@
-import { BlockModel, ResultBuilder, ResultEnum } from "../models/model";
+import { BlockModel, INITIAL_BOARD_VALUE, MAX_COL_WIDTH, ResultBuilder, ResultEnum } from "../models/model";
 
 export class SudokuValidator {
 
@@ -108,7 +108,55 @@ export class SudokuValidator {
 
 }
 
+export class SudokuSolver {
 
+    private isComplete = false;
+    private sudokuValidator : SudokuValidator;
+
+    constructor() {
+        this.sudokuValidator = new SudokuValidator();
+    }
+
+    private dfs(board : BlockModel[][], rI : number, cI : number) {
+        if (rI >= board.length) {
+            this.isComplete = true;
+            return;
+        }
+
+        let fillIndex : boolean = board[rI][cI].suppliedValue == INITIAL_BOARD_VALUE;
+
+        if (fillIndex) {
+            for (let val = 1; val < 10 && !this.isComplete; val++) {
+                board[rI][cI].suppliedValue = val;
+
+                if (this.sudokuValidator.isIndexValid(board, rI, cI)) {
+                    let nextRow = rI + ((cI + 1) / MAX_COL_WIDTH);
+                    let nextCol = (cI + 1) % MAX_COL_WIDTH;
+                    this.dfs(board, nextRow, nextCol);
+                    if (this.isComplete)
+                        return;
+                    else // condition for backtracking 
+                        board[rI][cI].suppliedValue = INITIAL_BOARD_VALUE;
+                } else {
+                    board[rI][cI].suppliedValue = INITIAL_BOARD_VALUE;
+                }
+            }
+        } else {
+            let nextRow = rI + ((cI + 1) / MAX_COL_WIDTH);
+            let nextCol = (cI + 1) % MAX_COL_WIDTH;
+            this.dfs(board, nextRow, nextCol);
+        }
+    }
+
+    public solve(board : BlockModel[][]) {
+        this.dfs(board, 0, 0);
+    }
+}
+
+
+/**
+ * Returns the initial 20 sudokus
+ */
 export class SudokuGenerator {
 
     

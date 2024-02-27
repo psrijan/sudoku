@@ -7,7 +7,7 @@ import { ThemesService } from '../../service/themes.service';
 import {MatSliderModule} from '@angular/material/slider';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogData, MsgDialogComponent, ThemeChoice } from '../dialog/msg-dialog.component';
-import { Difficulty, SudokuValidator } from 'src/app/util/sudoku.generator.util';
+import { Difficulty, SudokuSolver, SudokuValidator } from 'src/app/util/sudoku.generator.util';
 import { SudokuGenerator } from 'src/app/util/sudoku.generator.util';
 
 @Component({
@@ -48,7 +48,7 @@ export class BoardComponent {
 
   generator : SudokuGenerator;
   validator : SudokuValidator;
-
+  sudokuSolver : SudokuSolver;
   /* Is set to true, if any of the board index is invalid, 
   this value used to enable disable 
   */
@@ -64,7 +64,7 @@ export class BoardComponent {
     
     this.generator = new SudokuGenerator();
     this.validator = new SudokuValidator();
-
+    this.sudokuSolver = new SudokuSolver();
 
     this.boardMatrix = this.generator.getSudoku(this.difficultyLevel, this.matrixIndex)
 
@@ -81,6 +81,11 @@ export class BoardComponent {
 
     }, 1000);
     console.log("row: ", this.boardMatrix.length, " col: ", this.boardMatrix[0].length);
+  }
+
+  solveButtonClicked() {
+    console.log("solve button clicked");
+    this.sudokuSolver.solve(this.boardMatrix);
   }
 
 

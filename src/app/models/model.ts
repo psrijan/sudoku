@@ -72,3 +72,5 @@ export enum ResultEnum {
 
 
 export const INITIAL_BOARD_VALUE = 0;
+export const MAX_COL_WIDTH = 9;
+export const MAX_ROW_WIDTH = 9;
