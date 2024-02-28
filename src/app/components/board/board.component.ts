@@ -50,7 +50,7 @@ export class BoardComponent {
   validator : SudokuValidator;
   sudokuSolver : SudokuSolver;
   /* Is set to true, if any of the board index is invalid, 
-  this value used to enable disable 
+  this value used to enable disable board
   */
   indexValid : boolean = true; 
 
@@ -181,7 +181,7 @@ export class BoardComponent {
         selectedBlock.penciledValue = this.selectedValue;
       } else {
         selectedBlock.suppliedValue = this.selectedValue;
-        if (!this.validator.isIndexValid(this.boardMatrix, this.selectedLoc[0], this.selectedLoc[1])) {
+        if (this.validator.isIndexValid(this.boardMatrix, this.selectedLoc[0], this.selectedLoc[1])) {
           this.scoreVal += 100;
           selectedBlock.isSuppliedValid = true;
           this.indexValid = true;

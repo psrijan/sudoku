@@ -55,7 +55,7 @@ export class SudokuValidator {
         let blockVals = new Set<Number> ();
 
 
-        for (let r = 0; r< this.MAX_SUDOKU_ROW; r++) {
+        for (let r = 0; r < this.MAX_SUDOKU_ROW; r++) {
             let curModel : BlockModel = board[r][targetColumn];
             // targetRow should not be equal to r because we are checking if the value is present in other row vals
             if (targetRow != r && curModel.suppliedValue != this.INITIAL_BOARD_VALUE) {
@@ -93,7 +93,8 @@ export class SudokuValidator {
         console.log("ColVals: ", colVals);
         console.log("BlockVals: ", blockVals);
         console.log("TargetVal: ", targetVal);
-        return rowVals.has(targetVal) || colVals.has(targetVal) || blockVals.has(targetVal);
+
+        return !rowVals.has(targetVal) && !colVals.has(targetVal) && !blockVals.has(targetVal);
     }
 
 
@@ -123,16 +124,20 @@ export class SudokuSolver {
             return;
         }
 
-        let fillIndex : boolean = board[rI][cI].suppliedValue == INITIAL_BOARD_VALUE;
+        console.log(`rI: ${rI} , cI: ${cI}`);
+
+        let fillIndex : boolean = (board[rI][cI].suppliedValue == INITIAL_BOARD_VALUE);
 
         if (fillIndex) {
             for (let val = 1; val < 10 && !this.isComplete; val++) {
                 board[rI][cI].suppliedValue = val;
 
                 if (this.sudokuValidator.isIndexValid(board, rI, cI)) {
-                    let nextRow = rI + ((cI + 1) / MAX_COL_WIDTH);
+                    let nextRow = rI + (Math.floor((cI + 1) / MAX_COL_WIDTH));
                     let nextCol = (cI + 1) % MAX_COL_WIDTH;
-                    this.dfs(board, nextRow, nextCol);
+                    this.dfs(board, nextRow, nextCol)
+                    //setTimeout(() =>   this.dfs(board, nextRow, nextCol), 500);
+                   
                     if (this.isComplete)
                         return;
                     else // condition for backtracking 
@@ -142,13 +147,15 @@ export class SudokuSolver {
                 }
             }
         } else {
-            let nextRow = rI + ((cI + 1) / MAX_COL_WIDTH);
+            let nextRow = rI + (Math.floor((cI + 1) / MAX_COL_WIDTH));
             let nextCol = (cI + 1) % MAX_COL_WIDTH;
-            this.dfs(board, nextRow, nextCol);
+            this.dfs(board, nextRow, nextCol)
+            //setTimeout(() => this.dfs(board, nextRow, nextCol), 500);
         }
     }
 
     public solve(board : BlockModel[][]) {
+        console.log("Board: ", board);
         this.dfs(board, 0, 0);
     }
 }
