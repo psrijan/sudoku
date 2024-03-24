@@ -9,6 +9,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogData, MsgDialogComponent, ThemeChoice } from '../dialog/msg-dialog.component';
 import { Difficulty, SudokuSolver, SudokuValidator } from 'src/app/util/sudoku.generator.util';
 import { SudokuGenerator } from 'src/app/util/sudoku.generator.util';
+import * as _ from 'lodash';
+
 
 @Component({
   selector: 'app-board',
@@ -157,8 +159,23 @@ export class BoardComponent {
   }
 
   smartHintClicked() {
-    if (this.hintCount > 0)
-      this.hintCount--;
+    if (this.hintCount <= 0)
+      return;
+
+    let boardMatrixCopy = _.cloneDeep(this.boardMatrix);
+    this.sudokuSolver.solve(boardMatrixCopy);
+    
+    let r = this.selectedLoc[0];
+    let c = this.selectedLoc[1];
+
+    console.log()
+
+    this.boardMatrix[r][c].suppliedValue = boardMatrixCopy[r][c].suppliedValue;
+    this.boardMatrix[r][c].isSuppliedValid = true;
+
+    this.hintCount--;
+
+
     
   }
 

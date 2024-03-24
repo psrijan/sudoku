@@ -1,6 +1,6 @@
 TASK:
 1. Timer is messing up [DONE] 
-2. the layout is not working so well []
+2. The layout is not working so well []
 3. If in case you complete then you need to show a pop up [] 
 	- overall board validator [DONE]
 	- Overlay Screen [DONE]
@@ -16,6 +16,7 @@ TASK:
 8. How does pencil and eraise work. []
 	- erase dont remove the score need to create logic [] 
 	-
-9. 
-
-
+9. Smart hint didn't work the second and third time around [] 
+10. After filling a few values when you press on the solve button then the board is not being solved [] 
+11. Create a set of 10 easy sudoku leves [] 
+12. 

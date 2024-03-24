@@ -96,10 +96,6 @@ export class SudokuValidator {
 
         return !rowVals.has(targetVal) && !colVals.has(targetVal) && !blockVals.has(targetVal);
     }
-
-
-    
-    
     
     isValid (board : number[][], r, c) : any {
         let target = board[r][c];
