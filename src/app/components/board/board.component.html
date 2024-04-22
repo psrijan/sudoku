@@ -1,4 +1,10 @@
 <div class = "main">
+    <div *ngIf = "displayOverlay" class = "msg-overlay">
+
+        <h1> Game Over </h1>
+        <p> Score: {{scoreVal}} </p>
+
+    </div>
     <div class = "action-bar-top">
         <div>
             <i class="bi bi-check-lg bi-btn" (click) = "solveButtonClicked()"></i>

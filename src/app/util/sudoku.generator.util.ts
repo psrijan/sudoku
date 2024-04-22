@@ -120,15 +120,18 @@ export class SudokuSolver {
             return;
         }
 
-        console.log(`rI: ${rI} , cI: ${cI}`);
+        console.log(`[rI,cI]: [${rI},${cI}]`);
+        console.log(`curVal`, board[rI][cI]);
 
         let fillIndex : boolean = (board[rI][cI].suppliedValue == INITIAL_BOARD_VALUE);
 
         if (fillIndex) {
+            console.log('iffing out ');
             for (let val = 1; val < 10 && !this.isComplete; val++) {
                 board[rI][cI].suppliedValue = val;
-
-                if (this.sudokuValidator.isIndexValid(board, rI, cI)) {
+                const isCurrentIndexValid : boolean = this.sudokuValidator.isIndexValid(board, rI, cI);
+                console.log("Current Index Valid: ", isCurrentIndexValid);
+                if (isCurrentIndexValid) {
                     let nextRow = rI + (Math.floor((cI + 1) / MAX_COL_WIDTH));
                     let nextCol = (cI + 1) % MAX_COL_WIDTH;
                     this.dfs(board, nextRow, nextCol)
@@ -146,13 +149,16 @@ export class SudokuSolver {
             let nextRow = rI + (Math.floor((cI + 1) / MAX_COL_WIDTH));
             let nextCol = (cI + 1) % MAX_COL_WIDTH;
             this.dfs(board, nextRow, nextCol)
+            console.log('elsing out ' + '[nR, nC]' + '[' + nextRow + "," + nextCol+ ']');
             //setTimeout(() => this.dfs(board, nextRow, nextCol), 500);
         }
     }
 
     public solve(board : BlockModel[][]) {
+        this.isComplete = false;
         console.log("Board: ", board);
         this.dfs(board, 0, 0);
+
     }
 }
 

@@ -11,12 +11,14 @@ TASK:
 	- 
 5. The border is not showing well [DONE]
  	
-6. Colors for white background not working well []
+6. Colors for white background not working well [DONE]
 7. Complete validation not done []
 8. How does pencil and eraise work. []
 	- Erase dont remove the score need to create logic [] 
 	-
 9. Smart hint didn't work the second and third time around [] 
-10. After filling a few values when you press on the solve button then the board is not being solved [] 
+10. After filling a few values when you press on the solve button then the board is not being solved [DONE] 
+	- solved - state of the isComplete was being stored in the Solver [DONE] 
 11. Create a set of 10 easy sudoku leves [] 
-12. 
+12. Create a working version in GIT [] 
+13. 

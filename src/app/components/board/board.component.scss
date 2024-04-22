@@ -45,6 +45,15 @@
     margin: 10px;
 }
 
+.msg-overlay {
+    background-color: var(--background-color-primary);
+    opacity: 50%;
+    z-index: 100;
+    position: absolute;
+    width: 480px;
+    height:820px;
+}
+
 .action-bar {
     display: flex;
     flex-direction: row;

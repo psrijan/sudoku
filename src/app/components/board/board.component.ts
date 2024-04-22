@@ -56,6 +56,8 @@ export class BoardComponent {
   */
   indexValid : boolean = true; 
 
+  displayOverlay : boolean = false; // this will display message after getting result board 
+
   // holds the overall board result
   result : Result;
 
@@ -88,6 +90,7 @@ export class BoardComponent {
   solveButtonClicked() {
     console.log("solve button clicked");
     this.sudokuSolver.solve(this.boardMatrix);
+    //this.displayOverlay = true;
   }
 
 
@@ -202,6 +205,7 @@ export class BoardComponent {
           this.curMistakes++;
           selectedBlock.isSuppliedValid = false;
           this.indexValid = false;
+          //this.checkGameOver();
         }
       }
 
@@ -210,7 +214,15 @@ export class BoardComponent {
       console.log('Num Click not being supplied to Block');
     }
   }
+
+  checkGameOver() {
+    if (this.curMistakes >= 3) {
+      this.displayOverlay = true;
+    }
+  }
+
 }
+
 
 @Component({
   selector: 'font-slider',
