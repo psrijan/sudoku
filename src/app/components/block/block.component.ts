@@ -71,12 +71,6 @@ export class BlockElementComponent implements OnInit {
                 resultClass += ' border-right ';
             }
         }
-
-
-
-
-        // console.log("RESULTING SYLE: ", resultClass);
-
         return resultClass;
       }
 

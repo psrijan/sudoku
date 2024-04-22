@@ -1,19 +1,20 @@
-
 <div class = "main">
     <div class = "action-bar-top">
         <div>
-            <i class="bi bi-arrow-left bi-btn"></i>
+            <i class="bi bi-check-lg bi-btn" (click) = "solveButtonClicked()"></i>
         </div>
 
+        <div> <span class = "app-heading"> Sudoku </span></div>
         <div> 
-            <i class="bi bi-box-arrow-up-right bi-btn"></i>
-            <span  (click) = "pauseClicked()">
+            <!--<i class="bi bi-box-arrow-up-right bi-btn"></i>
+            <span (click) = "pauseClicked()">
                 <i class="bi bi-pause-circle bi-btn"></i>
             </span>
+        -->
             <span  (click) = "themeChooserClicked()">
                 <i class="bi bi-palette bi-btn"></i>
             </span>
-            <i class="bi bi-gear bi-btn"></i>
+            <!-- <i class="bi bi-gear bi-btn"></i> -->
         </div>
     </div>
 
@@ -26,7 +27,6 @@
         <span>{{difficulty}}</span>
         <span> {{timeMin}}:{{timeSec}}</span>
     </div>
-
 
     <div class="sudokuBoard">
         <table> 
@@ -61,15 +61,9 @@
         </div>
     </div>
     
-
     <div class = "numPanel">
         <div *ngFor = "let n of possibleNumbers" class = "num-button" (click)="numButtonClick(n)"> {{n}}</div>
     </div>
 
-    <div class = "">
-
-        <button (click) = "solveButtonClicked()">  Solve </button>
-
-    </div>
-
+   
 </div>

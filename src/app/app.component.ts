@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemesService } from './service/themes.service';
+import { ThemeChoice } from './components/dialog/msg-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,7 @@ export class AppComponent implements OnInit{
 
   changeTheme() : void {
     console.log('change theme clicked');
-    this.themeService.changeTheme('dark');
+    this.themeService.changeTheme(ThemeChoice.DARK);
   }
 
 

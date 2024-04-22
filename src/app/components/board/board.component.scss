@@ -15,8 +15,6 @@
         color: var(--font-color-secondary);
         text-align: center;
     }
-    
-
 }
 
 .board-row {
@@ -36,7 +34,7 @@
 }
 
 .tile-selected {
-    background-color: var(--font-color-secondary);
+    background-color: var(--block-background-color-selected);
 }
 
 
@@ -52,6 +50,7 @@
     flex-direction: row;
     justify-content: space-between;
     margin: 20px 20px;
+    color: var(--font-color-primary);
 
     .off-btn {
         background-color: var(--button-deactivated);
@@ -70,7 +69,6 @@
     .btn-enable {
         background-color: var(--button-active);
     }
-
 
     .hint-btn {
         border-radius: 50%;
@@ -102,10 +100,18 @@
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 20px;
+    color: var(--font-color-primary);
+
     .bi-btn {
         font-size: 2em;
         padding: 2px 10px;
     }
+
+    .app-heading {
+        color: var(--font-color-primary);
+        font-size:30px;
+    }
+    
 
 }
 
@@ -113,6 +119,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    color: var(--font-color-tertiary)
     
 }
 

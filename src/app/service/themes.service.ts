@@ -1,5 +1,6 @@
 import { DOCUMENT } from "@angular/common";
 import { Inject, Injectable } from "@angular/core";
+import { ThemeChoice } from "../components/dialog/msg-dialog.component";
 
 
 @Injectable({ providedIn: 'root' })
@@ -26,7 +27,7 @@ export class ThemesService {
     //     }
     // }
 
-    public changeTheme(themeName : string) : void {
+    public changeTheme(themeName : ThemeChoice) : void {
         this.document.body.setAttribute('data-theme', 
         themeName);
 

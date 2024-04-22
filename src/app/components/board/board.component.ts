@@ -42,7 +42,7 @@ export class BoardComponent {
   pencilLabel : string = 'Off';
   startTime : Date; 
 
-  currentThemeType : ThemeChoice.WHITE;
+  currentThemeType : 'yellow';
   currentFontSize : 1;
 
   difficultyLevel : Difficulty = Difficulty.EASY;
@@ -126,13 +126,11 @@ export class BoardComponent {
   }
 
   themeChooserClicked() {
-    console.log('Opening theme chooser');
     let ddata : DialogData = {theme: {type : this.currentThemeType , fontSize : this.currentFontSize}};
-    const dialogRef = this.dialog.open(MsgDialogComponent , { data : ddata, height: '160px', width: '190px'});
-
+    const dialogRef = this.dialog.open(MsgDialogComponent , { data : ddata, height: '170px', width: '300px'});
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log('data: ' , result);
+      this.currentThemeType = result.theme;
+      this.currentFontSize = result.fontSize;
     });
   }
 
@@ -174,9 +172,6 @@ export class BoardComponent {
     this.boardMatrix[r][c].isSuppliedValid = true;
 
     this.hintCount--;
-
-
-    
   }
 
   undoClicked() {
@@ -184,6 +179,7 @@ export class BoardComponent {
     if (this.selectedLoc != null && this.selectedLoc.length == 2) {
       let curSelected : BlockModel = this.boardMatrix[this.selectedLoc[0]][this.selectedLoc[1]];
       curSelected.suppliedValue = INITIAL_BOARD_VALUE;
+      curSelected.isSuppliedValid = true;
     } else {
       console.log('Erase Clicked: Not selected any grid item');
     }

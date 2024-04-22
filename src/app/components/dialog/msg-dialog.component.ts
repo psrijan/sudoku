@@ -21,16 +21,20 @@ export class MsgDialogComponent {
     minStr : string = "";
     secStr : string = ""; 
     difficultyLevel : string;
+    themeChoice : any;
+    fontSize : any = 1;
 
     constructor(public dialogRef : MatDialogRef<MsgDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: DialogData, private themeService : ThemesService) { 
+            this.themeChoice = data.theme?.type;
+            this.fontSize = data.theme?.fontSize;
+            console.log("Msg - Dialog: ", data);
     }
 
 
     doneClicked() {
-        let themeChoice = ThemeChoice.DARK;
         let fontSize = 2;
-        this.dialogRef.close({theme: ThemeChoice.DARK, fontSize : fontSize });
+        this.dialogRef.close({theme: this.themeChoice, fontSize : fontSize });
 
     }
 
@@ -43,14 +47,14 @@ export class MsgDialogComponent {
 
     }
 
-
-  themeChosen(value) {
+  themeChosen(value ) {
+    this.themeChoice = value;
     this.themeService.changeTheme(value);
   }
 }
 
 export interface DialogData {
-    theme?: {type : ThemeChoice, fontSize : number},
+    theme?: {type : any, fontSize : number},
     pause? : { minStr : string, secStr : string, difficulty : string, hintHeader? : string, hintContent? : string }
 }
 
@@ -61,8 +65,8 @@ export enum PauseDialogResponse {
 }
 
 export enum ThemeChoice {
-    DARK,
-    WHITE,
-    YELLOW,
-    BLUE
+    DARK = "dark",
+    WHITE = "white",
+    YELLOW = "yellow",
+    BLUE = "blue"
 }
